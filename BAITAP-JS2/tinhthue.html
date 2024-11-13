@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>vui lòng nhập tên</p>
+    <input id="ten" type="text">
+    <p> tông thu nhập năm</p>
+    <input id="tongThu" type="text">
+    <p>số người phụ thuộc </p>
+    <input id="phuThuoc" type="text">
+    <button type="button" id="btnTinh">mời bác nhập </button>
+    <p id="inRa">thu nhập chiụ thuế của bạn là</p>
+    <script>
+        function thongTin() {
+            let a = document.getElementById('ten').value;
+            let b = parseFloat(document.getElementById('tongThu').value);
+            let c = parseInt(document.getElementById('phuThuoc').value);
+
+            let tnct = b - 4000000 - c * 1600000
+            if (b <= 0 || isNaN(b)) {
+                alert('Vui lòng nhập tổng thu nhập năm hợp lệ lớn hơn 0');
+                return undefined;
+            }
+            if (c < 0 || isNaN(c)) {
+                alert('Vui lòng nhập số người phụ thuộc hợp lệ');
+                return undefined;
+            } return { a, tnct };
+        }
+        document.getElementById('btnTinh').onclick = function () {
+            let { a, tnct } = thongTin()
+            if (a, tnct === undefined) return;
+            let total = 0
+            if (tnct > 0 && tnct <= 60000000) { total = tnct * (5 / 100) }
+            else if (tnct >= 61000000 && tnct <= 120000000) { total = tnct * (10 / 100) }
+            else if (tnct >= 121000000 && tnct <= 210000000) { total = tnct * (15 / 100) }
+            else if (tnct >= 211000000 && tnct <= 384000000) { total = tnct * (20 / 100) }
+            else if (tnct >= 385000000 && tnct <= 624000000) { total = tnct * (25 / 100) }
+            else if (tnct >= 625000000 && tnct <= 960000000) { total = tnct * (30 / 100) }
+            else if (tnct >= 961000000) {
+                total = tnct * (35 / 100)
+            }
+            document.getElementById('inRa').innerHTML = `thuế của bạn ${a} là: ${total.toLocaleString()} VND`;
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p> Vui Lòng Nhập Tên : </p>
+    <input id="tenKH" type="text">
+    <p> Vui Lòng Nhập Tổng Số KW : </p>
+    <input id="soKW" type="text">
+    <button id="btnTinh" type="button">bấm để tính </button>
+    <p id="inRa">số tiền của bạn là </p>
+    <script>
+        let price1 = 500
+        let price2 = 650
+        let price3 = 850
+        let price4 = 1100
+        let price5 = 1300
+
+
+        document.getElementById('btnTinh').onclick = function () {
+            let input = parseFloat(document.getElementById('soKW').value);
+            let tenKH = document.getElementById('tenKH').value;
+            let output = 0;
+            if (input > 0) {
+                if (input <= 50) { output = price1 * input }
+                else if (input >= 51 && input <= 101) { output = (50 * price1) + ((input - 51) * price2) }
+                else if (input >= 102 && input <= 202) { output = (50 * price1) + (50 * price2) + ((input - 102) * price3) }
+                else if (input >= 203 && input <= 353) { output = (50 * price1) + (50 * price2) + (100 * price3) + ((input - 203) * price4) }
+                else if (input >= 354) {
+                    output = (50 * price1) + (50 * price2) + (100 * price3) + (150 * price4) + ((input - 354) * price5)
+                }
+                document.getElementById('inRa').innerHTML = `Xin chào ${tenKH}, số tiền của bạn là ${output.toLocaleString()} VND`;
+            } else {
+                document.getElementById('inRa').innerHTML = "Vui lòng nhập số hợp lệ lớn hơn 0.";
+            }
+        }
+    </script>
+</body>
+
+</html>

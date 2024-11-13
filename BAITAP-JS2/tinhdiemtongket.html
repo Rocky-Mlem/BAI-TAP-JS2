@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <input id="dc" type="text" placeholder="Điểm Chuẩn">
+        <input id="dm1" type="text" placeholder="Điểm môn 1">
+        <input id="dm2" type="text" placeholder="Điểm môn 2">
+        <input id="dm3" type="text" placeholder="Điểm môn 3">
+        <select id="dkv">
+            <option value="">Mời bạn chọn khu vực</option>
+            <option value="A">Khu vực A</option>
+            <option value="B">Khu vực B</option>
+            <option value="C">Khu vực C</option>
+            <option value="X">Khu vực X</option>
+        </select>
+        <select id="ddt">
+            <option value="">Mời bạn chọn đối tượng</option>
+            <option value="1">Đối tượng 1</option>
+            <option value="2">Đối tượng 2</option>
+            <option value="3">Đối tượng 3</option>
+            <option value="0">Đối tượng 0</option>
+        </select>
+        <p>Vui Lòng Chọn X: Nếu không thuộc Khu Vực Ưu Tiên </p>
+        <p>Vui Lòng Chọn 0: Nếu không thuộc Đối Tượng Ưu Tiên </p>
+        <button id="btnTinh" type="button">Bấm để nhận kết quả</button>
+        <p id="traKetQua">Trả kết quả</p>
+    </form>
+    <script>
+        // dkt >= dc
+        // dm1 ,dm2 ,dm3 >0
+        // dut = dkv + ddt
+        // dtk = dm1+dm2+dm3 + dut
+        // tạo input dc , dm1 , dm2 ,dm3  ,dkv , ddt
+        // thong bao đậu hay rớt , và tổng điểm 
+        const dkv = {
+            'A': 2,
+            'B': 1,
+            'C': 0.5,
+            'X': 0
+        };
+        const ddt = {
+            '0': 0,
+            '1': 2.5,
+            '2': 1.5,
+            '3': 1,
+        };
+        document.getElementById('btnTinh').onclick = function () {
+            let dc = document.getElementById('dc').value * 1;
+            let dm1 = document.getElementById('dm1').value * 1;
+            let dm2 = document.getElementById('dm2').value * 1;
+            let dm3 = document.getElementById('dm3').value * 1;
+            let diemKhuVuc = document.getElementById('dkv').value;
+            let diemDoiTuong = document.getElementById('ddt').value;
+            let diemTongKet = tinhDiemTongKet(dm1, dm2, dm3, diemKhuVuc, diemDoiTuong)
+
+            if (isNaN(dc) || isNaN(dm1) || isNaN(dm2) || isNaN(dm3) || dc <= 0 || dm1 <= 0 || dm2 <= 0 || dm3 <= 0) {
+                alert('Điểm các môn và điểm chuẩn phải là số và lớn hơn 0!');
+                return;
+            }
+            if (!diemKhuVuc || !diemDoiTuong) {
+                alert('Vui lòng chọn khu vực và đối tượng!');
+                return;
+            }
+            if (diemTongKet >= dc) {
+                document.getElementById('traKetQua').innerHTML = `Chúc Mừng , Bạn đã Đậu , Tổng điểm của bạn là : ${diemTongKet} điểm`;
+
+            } else if (diemTongKet < dc) {
+                document.getElementById('traKetQua').innerHTML = `Rất tiếc, Bạn đã Rớt , cố gắng lần sau nhé . Tổng điểm của bạn là ${diemTongKet} điểm`;
+
+            }
+        }
+        function diemUuTien(diemKhuVuc, diemDoiTuong) {
+            let dut = dkv[diemKhuVuc] + ddt[diemDoiTuong];
+            return dut;
+        }
+
+
+        function tinhDiemTongKet(dm1, dm2, dm3, diemKhuVuc, diemDoiTuong) {
+            let dut = diemUuTien(diemKhuVuc, diemDoiTuong);
+            let diemTongKet = dm1 + dm2 + dm3 + dut;
+            return diemTongKet;
+        }
+    </script>
+</body>
+
+</html>

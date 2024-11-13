@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="maKH" type="text" placeholder="Mã Khách Hàng">
+    <select id="loaiKH">
+        <option value="">Chọn loại khách hàng</option>
+        <option value="nhaDan">Nhà Dân</option>
+        <option value="doanhNghiep">Doanh Nghiệp</option>
+    </select>
+    <input id="soKN" type="text" placeholder="Số Kết Nối" disabled>
+    <input id="soKenh" type="text" placeholder="Số Kênh">
+
+
+    <button id="btnTinh" type="button" id="">Mời bác nhấn để tính</button>
+    <script>
+        let nhaDan = {
+            phiXuLyHD: 4.5,
+            phiDichVUCB: 20.5,
+            phiThueKenh: 7.5
+        };
+
+        let doanhNghiep = {
+            phiXuLyHD: 15,
+            phiDichVUCB: 75,
+            phiThueKenh: 50
+        };
+        function tienKetNoiPlus(soKN) {
+
+            if (soKN > 10) {
+                return (soKN - 10) * 5;
+            }
+            return 0;
+
+        }
+        function tinhHoaDon(maKH, loaiKH, soKN, soKenh) {
+
+            let ketNoiPlus = tienKetNoiPlus(soKN)
+            let output = 0
+            switch (loaiKH) {
+                case 'nhaDan':
+                    output = nhaDan.phiXuLyHD + nhaDan.phiDichVUCB + (soKenh * nhaDan.phiThueKenh);
+                    break
+                case 'doanhNghiep': output = doanhNghiep.phiXuLyHD + (soKN * doanhNghiep.phiDichVUCB) + (soKenh * doanhNghiep.phiThueKenh) + ketNoiPlus;
+                    break
+                default: output = 0;
+                    break
+            }
+            return output
+        }
+        document.getElementById('loaiKH').addEventListener('change', function () {
+            let loaiKH = this.value;
+            let soKNInput = document.getElementById('soKN');
+
+
+            if (loaiKH === 'nhaDan') {
+                soKNInput.disabled = true;
+                soKNInput.value = '';
+            } else if (loaiKH === 'doanhNghiep') {
+                soKNInput.disabled = false;
+            } else {
+                soKNInput.disabled = true;
+                soKNInput.value = '';
+            }
+        });
+        document.getElementById('btnTinh').onclick = function () {
+            let maKH = document.getElementById('maKH').value;
+            let loaiKH = document.getElementById('loaiKH').value;
+            let soKN = parseFloat(document.getElementById('soKN').value);
+            let soKenh = parseFloat(document.getElementById('soKenh').value);
+            let ketQua = tinhHoaDon(maKH, loaiKH, soKN, soKenh);
+            alert(ketQua)
+        }
+
+    </script>
+</body>
+
+</html>
